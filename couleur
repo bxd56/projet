@@ -1,0 +1,54 @@
+#author : Arbia Bochra
+#date : 23/03/24
+#fichier couleurs
+
+#il faut creer une fonction couleur_moyenne_region(image,coin_haut_gauche,coin_bas_droit) -> renvoie la couleur moyenne de cette zone
+
+
+
+from math import sqrt
+
+
+def est_proche_couleurs(couleur1:tuple[int,int,int], couleur2:tuple[int,int,int])->bool:
+    """Renvoie True ssi les deux couleurs sont proches en fonction de la distance euclidienne entre ces 2 couleurs
+
+    Précondition : 
+    Exemple(s) :
+    $$$ est_proche_couleurs((250, 10, 67),(238, 51, 78))
+    True
+    $$$ est_proche_couleurs((0,0,0),(255,255,255))
+    False
+
+    """
+    return sqrt((couleur1[0]-couleur2[0])**2 + (couleur1[1]-couleur2[1])**2 + (couleur1[2]-couleur2[2])**2) <= 100
+
+
+def moyenne_couleurs(liste: list[tuple[int,int,int]])->tuple[int,int,int]:
+    """Renvoir la moyenne des couleurs rvb
+
+    Précondition : 
+    Exemple(s) :
+    $$$ 
+
+    """
+    rouge = 0
+    vert = 0
+    bleu = 0
+    total = len(liste)
+    for i in range(total):
+        rouge += liste[i][0]
+        vert += liste[i][1]
+        bleu += liste[i][2]
+        
+    return (rouge//total,vert//total,bleu//total)
+
+
+    
+
+
+
+
+
+
+
+
