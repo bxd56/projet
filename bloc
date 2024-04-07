@@ -1,0 +1,107 @@
+# author : Bochra
+# date : 23/03/24
+# class Bloc
+
+from couleur import *
+
+
+class Bloc:
+    """Paramètres :
+    à_remplacer_par_ce_que_fait_la_fonction
+
+    Précondition : 
+    Exemple(s) :
+    $$$ b= Bloc((25,100,30),(15,20),(35,15),[])
+    $$$ b.est_uniforme
+    True
+
+
+    """
+    def __init__(self,couleur:tuple[int,int,int], coord_haut:tuple[int,int] , coord_bas:tuple[int,int], sous_blocs: list[list[tuple]]):
+        """Crée un Bloc avec les coordonnées de celui-ci , sa couleur et ses sous blocs s'il en a 
+
+        Précondition : 
+        Exemple(s) :
+        $$$ b = Bloc((25,100,30),(15,20),(35,15),[[(10,30,20),(15, 20),(25, 17.5)],[((10,25,25)),(25,20),(35,17.5)],[((40,30,23)),(15,17.5),(25,15)],[((12,50,90)),(25,17.5),(35,15)]])
+        $$$ b.couleur
+        (25,100,30)
+        $$$ b.zone_bloc
+        ((15,20),(35,15))
+        $$$ b.sous_blocs
+        [[(10,30,20),(15, 20),(25, 17.5)],[((10,25,25)),(25,20),(35,17.5)],[((40,30,23)),(15,17.5),(25,15)],[((12,50,90)),(25,17.5),(35,15)]]
+        
+
+
+        """
+        
+        
+         
+        self.couleur = couleur
+        self.zone_bloc = (coord_haut,coord_bas)
+        self.sous_blocs = sous_blocs
+        
+        if len(self.sous_blocs) == 0:
+            self.est_uniforme = True
+            
+        else:
+            self.est_uniforme = False
+            
+    
+
+    def __repr__(self):
+        """à_remplacer_par_ce_que_fait_la_fonction
+
+        Précondition : 
+        Exemple(s) :
+        $$$ 
+
+        """
+        
+        return f"Bloc({self.couleur}, {self.zone_bloc[0]},{self.zone_bloc[1]},{self.sous_blocs})"
+
+        
+       
+        
+    
+    
+            
+            
+            
+    
+   
+            
+    
+    
+        
+        
+ 
+
+                
+        
+        
+    
+    
+    
+
+        
+        
+    
+        
+if (__name__ == '__main__'):
+    import apl1test
+    apl1test.testmod('bloc.py')       
+         
+             
+            
+        
+    
+        
+
+
+
+
+
+
+
+    
+    
