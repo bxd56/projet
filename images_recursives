@@ -1,0 +1,85 @@
+"""
+author : Bochra
+date : 01/04/2024
+algorithme final
+
+"""
+from bloc import Bloc
+from PIL import Image , ImageDraw
+from image import *
+from couleur import moyenne_couleurs
+
+
+
+
+def images_recursives(ordre:int,nom_image:str, bloc:Bloc)->Bloc:
+    """Représente des images de façon récursive
+
+    Précondition : 
+    Exemple(s) :
+    $$$ 
+
+    """
+    
+    
+    
+    
+    if ordre == 0:
+        
+        return bloc
+    
+    else:
+        divise_bloc(bloc,nom_image)
+        print(bloc)
+        l_blocs = []
+        l_couleur = []
+        for sous_bloc in bloc.sous_blocs:
+            nouv_bloc = images_recursives(ordre-1, nom_image,sous_bloc)
+            
+            sous_bloc.sous_blocs.append(nouv_bloc.sous_blocs)
+            l_couleur.append(nouv_bloc.couleur)
+       
+        if sont_proches_blocs(bloc.sous_blocs[0],bloc.sous_blocs[1:]):
+            return Bloc(moyenne_couleurs(l_couleur),bloc.sous_blocs[0].zone_bloc[0],bloc.sous_blocs[len(bloc.sous_blocs)-1].zone_bloc[1],[])
+            
+        else:
+            return Bloc(moyenne_couleurs(l_couleur),bloc.sous_blocs[0].zone_bloc[0],bloc.sous_blocs[len(bloc.sous_blocs)-1].zone_bloc[1],bloc.sous_blocs)
+           
+im = charge_image("images/calbuth.png")
+bloc = Bloc(moyenne_couleurs(im[0]),(0,0),im[1],[])
+images_recursives(2,"images/calbuth.png",bloc)
+    
+
+def dessiner_blocs(image: Image, bloc: Bloc):
+    """Dessine les blocs sur une image donnée."""
+    # Créer un objet ImageDraw pour dessiner sur l'image
+    im_rgb = Image.open(image).convert("RGB")
+    draw = ImageDraw.Draw(im_rgb)
+    
+    # Dessiner un rectangle pour chaque bloc
+    for sous_bloc in bloc.sous_blocs:
+        # Obtenir les coordonnées du rectangle
+        x1, y1 = sous_bloc.zone_bloc[0]
+        x2, y2 = sous_bloc.zone_bloc[1]
+        # Dessiner le rectangle et le remplir avec la couleur du bloc
+        draw.rectangle([(x1, y1), (x2, y2)], fill=sous_bloc.couleur)
+        
+    im_rgb.show()
+
+    
+   
+
+
+    
+    
+
+
+            
+            
+    
+  
+
+
+
+
+        
