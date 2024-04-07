@@ -1,0 +1,115 @@
+#faire divise bloc
+#faire correction de la couleur dans divise_bloc ou dans l'algo final
+# enregistrer image
+
+from bloc import Bloc
+from PIL import Image
+from couleur import *
+
+
+
+    
+
+
+def divise_bloc( bloc:Bloc,nom_image:str)->None:
+        """Divise un Bloc en 4 sous_blocs
+
+        Précondition : 
+        Exemple(s) :
+        $$$ b = Bloc((100,100,100),(15,20),(35,15),[])
+        
+
+
+
+        """
+        im = Image.open(nom_image)
+        im_rgb = im.convert("RGB")
+        
+        (x1, y1), (x2, y2) = bloc.zone_bloc
+    
+        x_mid = (x1 + x2) // 2
+        y_mid = (y1 + y2) // 2
+    
+        sous_bloc1 = Bloc((None,None,None),(x1, y1), (x_mid, y_mid),[])
+        sous_bloc2 = Bloc((None,None,None),(x_mid, y1), (x2, y_mid),[])
+        sous_bloc3 = Bloc((None,None,None),(x1, y_mid), (x_mid, y2),[])
+        sous_bloc4 = Bloc((None,None,None),(x_mid, y_mid), (x2, y2),[])
+        
+        l_sousBloc = [sous_bloc1, sous_bloc2, sous_bloc3, sous_bloc4]
+        
+        
+        
+        l_sous_bloc_final = []
+        
+        
+        for sous_bloc in l_sousBloc:
+            l_sous_bloc_final.append(sous_bloc)
+        bloc.sous_blocs = l_sous_bloc_final
+        
+        for sous_bloc in bloc.sous_blocs:
+            debut_x, debut_y = sous_bloc.zone_bloc[0]
+            fin_x, fin_y = sous_bloc.zone_bloc[1]
+            couleurs = [im_rgb.getpixel((x, y)) for x in range(debut_x, fin_x) for y in range(debut_y, fin_y)]
+            couleur_moyenne = moyenne_couleurs(couleurs)
+            sous_bloc.couleur = couleur_moyenne
+        
+        
+      
+            
+        
+        
+
+
+        
+        
+def sont_proches_blocs(bloc:Bloc,l_blocs:list[Bloc])->bool:
+    """à_remplacer_par_ce_que_fait_la_fonction
+
+    Précondition : 
+    Exemple(s) :
+    $$$ b = Bloc((25,100,30),(15,20),(35,15),[(10,30,20),(15, 20),(25, 17.5),[],(10,25,25)),(25,20),(35,17.5),(40,30,23)),(15,17.5),(25,15),(12,50,90),(25,17.5),(35,15)])
+
+
+    """
+    res = []
+    for autre_bloc in l_blocs:
+        proches = est_proche_couleurs(bloc.couleur,autre_bloc.couleur)
+        res.append(proches)
+            
+    return all(res)
+        
+        
+    
+
+    
+            
+
+def charge_image(nom_image:str)->list[tuple[int,int,int]]:
+    """Charge l'image dont le nom est passé en paramètre et la convertit en RGB 
+
+    Précondition : /
+    Exemple(s) :
+    $$$ 
+
+    """
+    res = []
+    im = Image.open(nom_image)
+    im.rgb = im.convert("RGB")
+    for i in range(im.size[0]):
+        for j in range(im.size[1]):
+            res.append(im.rgb.getpixel((i,j)))
+    
+    return (res, im.size)
+
+    
+        
+        
+        
+  
+if (__name__ == '__main__'):
+    import apl1test
+    apl1test.testmod('image.py')    
+    
+    
+    
+    
